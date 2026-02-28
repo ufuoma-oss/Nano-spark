@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # Stage 1: build console frontend (dist not committed in repo).
 # -----------------------------------------------------------------------------
-FROM agentscope-registry.ap-southeast-1.cr.aliyuncs.com/agentscope/node:slim AS console-builder
+FROM node:20-slim AS console-builder
 WORKDIR /app
 COPY console /app/console
 RUN cd /app/console && npm ci --include=dev && npm run build
@@ -9,17 +9,17 @@ RUN cd /app/console && npm ci --include=dev && npm run build
 # -----------------------------------------------------------------------------
 # Stage 2: runtime image with Python, Chromium, and app.
 # -----------------------------------------------------------------------------
-FROM agentscope-registry.ap-southeast-1.cr.aliyuncs.com/agentscope/node:slim
+FROM node:20-slim
 
 # ENV variables
 ENV NODE_ENV=production
 ENV WORKSPACE_DIR=/app
-ENV COPAW_WORKING_DIR=/app/working
+ENV NANOSPARK_WORKING_DIR=/app/working
 
 # Available channels for this image (imessage & discord excluded).
-# Override at runtime with -e COPAW_ENABLED_CHANNELS=... if needed.
-ARG COPAW_ENABLED_CHANNELS="dingtalk,feishu,qq,console"
-ENV COPAW_ENABLED_CHANNELS=${COPAW_ENABLED_CHANNELS}
+# Override at runtime with -e NANOSPARK_ENABLED_CHANNELS=... if needed.
+ARG NANOSPARK_ENABLED_CHANNELS="dingtalk,feishu,qq,console"
+ENV NANOSPARK_ENABLED_CHANNELS=${NANOSPARK_ENABLED_CHANNELS}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -75,14 +75,15 @@ ENV PATH="/app/venv/bin:$PATH"
 COPY pyproject.toml setup.py README.md ./
 COPY src ./src
 # Inject console dist from build stage (repo does not commit dist).
-COPY --from=console-builder /app/console/dist/ ./src/copaw/console/
+COPY --from=console-builder /app/console/dist/ ./src/nanospark/console/
 RUN pip install --no-cache-dir .
 
 # Init working dir with default config.json and HEARTBEAT.md (build time).
-RUN copaw init --defaults --accept-security
+RUN nanospark init --defaults --accept-security
 
-# CoPaw app port (default 8088). Override at runtime with -e COPAW_PORT=3000.
-ENV COPAW_PORT=8088
+# NanoSpark app port (default 8088). Override at runtime with -e NANOSPARK_PORT=3000.
+ENV NANOSPARK_PORT=8088
+ENV PORT=8088
 
 COPY deploy/config/supervisord.conf.template /etc/supervisor/conf.d/supervisord.conf.template
 COPY --chmod=755 deploy/entrypoint.sh /entrypoint.sh

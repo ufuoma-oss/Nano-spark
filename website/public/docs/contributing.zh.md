@@ -1,8 +1,8 @@
 # 开源与贡献
 
-CoPaw 已开源，项目仓库托管于 GitHub：
+NanoSpark 已开源，项目仓库托管于 GitHub：
 
-**https://github.com/agentscope-ai/CoPaw**
+**https://github.com/agentscope-ai/NanoSpark**
 
 ---
 

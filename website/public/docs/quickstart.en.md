@@ -22,7 +22,7 @@ No Python required — the installer handles everything automatically using [uv]
 **macOS / Linux:**
 
 ```bash
-curl -fsSL https://copaw.agentscope.io/install.sh | bash
+curl -fsSL https://nanospark.agentscope.io/install.sh | bash
 ```
 
 Then open a new terminal (or `source ~/.zshrc` / `source ~/.bashrc`).
@@ -30,10 +30,10 @@ Then open a new terminal (or `source ~/.zshrc` / `source ~/.bashrc`).
 **Windows (PowerShell):**
 
 ```powershell
-irm https://copaw.agentscope.io/install.ps1 | iex
+irm https://nanospark.agentscope.io/install.ps1 | iex
 ```
 
-Then open a new terminal (the installer adds CoPaw to your PATH automatically).
+Then open a new terminal (the installer adds NanoSpark to your PATH automatically).
 
 You can also pass options:
 
@@ -65,37 +65,37 @@ bash install.sh --extras mlx         # MLX (Apple Silicon)
 .\install.ps1 -Extras mlx           # MLX
 ```
 
-To upgrade, simply re-run the install command. To uninstall, run `copaw uninstall`.
+To upgrade, simply re-run the install command. To uninstall, run `nanospark uninstall`.
 
 ### Step 2: Init
 
 Generate `config.json` and `HEARTBEAT.md` in the working directory (default
-`~/.copaw`). Two options:
+`~/.nanospark`). Two options:
 
 - **Use defaults** (no prompts; good for getting running first, then editing
   config later):
   ```bash
-  copaw init --defaults
+  nanospark init --defaults
   ```
 - **Interactive** (prompts for heartbeat interval, target, active hours, and
   optional channel and Skills setup):
   ```bash
-  copaw init
+  nanospark init
   ```
   See [CLI - Getting started](./cli#getting-started).
 
-To overwrite existing config, use `copaw init --force` (you will be prompted).
+To overwrite existing config, use `nanospark init --force` (you will be prompted).
 After init, if no channel is enabled yet, follow [Channels](./channels) to add
 DingTalk, Feishu, QQ, etc.
 
 ### Step 3: Start the server
 
 ```bash
-copaw app
+nanospark app
 ```
 
 The server listens on `127.0.0.1:8088` by default. If you have already
-configured a channel, CoPaw will reply there; otherwise you can add one after
+configured a channel, NanoSpark will reply there; otherwise you can add one after
 this step via [Channels](./channels).
 
 ---
@@ -105,11 +105,11 @@ this step via [Channels](./channels).
 If you prefer managing Python yourself (requires Python >= 3.10, < 3.14):
 
 ```bash
-pip install copaw
+pip install nanospark
 ```
 
 Optional: create and activate a virtualenv first (`python -m venv .venv`, then
-`source .venv/bin/activate` on Linux/macOS or `.venv\Scripts\Activate.ps1` on Windows). This installs the `copaw` command.
+`source .venv/bin/activate` on Linux/macOS or `.venv\Scripts\Activate.ps1` on Windows). This installs the `nanospark` command.
 
 Then follow [Step 2: Init](#step-2-init) and [Step 3: Start the server](#step-3-start-the-server) above.
 
@@ -117,21 +117,21 @@ Then follow [Step 2: Init](#step-2-init) and [Step 3: Start the server](#step-3-
 
 ## Option C: ModelScope Studio one-click setup (no install)
 
-If you prefer not to install Python locally, you can deploy CoPaw to ModelScope Studio's cloud:
+If you prefer not to install Python locally, you can deploy NanoSpark to ModelScope Studio's cloud:
 
 1. First, sign up and log in at [ModelScope](https://modelscope.cn/register?back=%2Fhome);
-2. Open the [CoPaw Studio](https://modelscope.cn/studios/fork?target=AgentScope/CoPaw) and complete the one-click setup.
+2. Open the [NanoSpark Studio](https://modelscope.cn/studios/fork?target=AgentScope/NanoSpark) and complete the one-click setup.
 
 **Important**: Set your Studio to **non-public**, or others may control your
-CoPaw.
+NanoSpark.
 
 ---
 
 ## Option D: Deploy on Alibaba Cloud ECS
 
-To run CoPaw on Alibaba Cloud, use the ECS one-click deployment:
+To run NanoSpark on Alibaba Cloud, use the ECS one-click deployment:
 
-1. Open the [CoPaw on Alibaba Cloud (ECS) deployment link](https://computenest.console.aliyun.com/service/instance/create/cn-hangzhou?type=user&ServiceId=service-1ed84201799f40879884) and fill in the parameters as prompted;
+1. Open the [NanoSpark on Alibaba Cloud (ECS) deployment link](https://computenest.console.aliyun.com/service/instance/create/cn-hangzhou?type=user&ServiceId=service-1ed84201799f40879884) and fill in the parameters as prompted;
 2. Confirm the cost and create the instance; when deployment finishes, you can get the access URL and start using the service.
 
 For step-by-step instructions, see [Alibaba Cloud Developer: Deploy your AI assistant in 3 minutes](https://developer.aliyun.com/article/1713682).

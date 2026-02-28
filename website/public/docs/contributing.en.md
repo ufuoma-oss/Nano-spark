@@ -1,8 +1,8 @@
 # Open Source & Contribution
 
-CoPaw is open source. The project repository is hosted on GitHub:
+NanoSpark is open source. The project repository is hosted on GitHub:
 
-**https://github.com/agentscope-ai/CoPaw**
+**https://github.com/agentscope-ai/NanoSpark**
 
 ---
 

@@ -1,0 +1,26 @@
+# Render Blueprint for NanoSpark
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: nanospark
+    runtime: docker
+    dockerfilePath: ./deploy/Dockerfile
+    dockerContext: .
+    plan: starter  # Can be upgraded to standard, pro, etc.
+    healthCheckPath: /
+    envVars:
+      - key: NANOSPARK_PORT
+        value: 8088
+      - key: PORT
+        value: 8088
+      - key: NANOSPARK_ENABLED_CHANNELS
+        value: console
+      - key: DASHSCOPE_API_KEY
+        sync: false  # Set this in Render dashboard
+      - key: OPENAI_API_KEY
+        sync: false  # Set this in Render dashboard
+    disk:
+      name: nanospark-data
+      mountPath: /app/working
+      sizeGB: 1
