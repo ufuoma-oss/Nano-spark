@@ -18,7 +18,7 @@ ENV NANOSPARK_WORKING_DIR=/app/working
 
 # Available channels for this image (imessage & discord excluded).
 # Override at runtime with -e NANOSPARK_ENABLED_CHANNELS=... if needed.
-ARG NANOSPARK_ENABLED_CHANNELS="dingtalk,feishu,qq,console"
+ARG NANOSPARK_ENABLED_CHANNELS="console"
 ENV NANOSPARK_ENABLED_CHANNELS=${NANOSPARK_ENABLED_CHANNELS}
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -81,13 +81,14 @@ RUN pip install --no-cache-dir .
 # Init working dir with default config.json and HEARTBEAT.md (build time).
 RUN nanospark init --defaults --accept-security
 
-# NanoSpark app port (default 8088). Override at runtime with -e NANOSPARK_PORT=3000.
-ENV NANOSPARK_PORT=8088
-ENV PORT=8088
+# Render assigns PORT dynamically at runtime
+# Default to 10000 if not set (Render's default)
+ENV PORT=10000
+ENV NANOSPARK_PORT=10000
 
 COPY deploy/config/supervisord.conf.template /etc/supervisor/conf.d/supervisord.conf.template
 COPY --chmod=755 deploy/entrypoint.sh /entrypoint.sh
 
-EXPOSE 8088
+EXPOSE 10000
 
 CMD ["/entrypoint.sh"]
